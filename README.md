@@ -1,5 +1,5 @@
 # Polyhedral_Feautrier_algo
-This is a briefly introduction/summary/review about Feautrier algorithm based on [Some efficient solutions to the affine scheduling problem Part I One-dimensional Time](https://www.researchgate.net/publication/2421859_Some_efficient_solutions_to_the_affine_scheduling_problem_Part_I_One-dimensional_Time) and [Some efficient solutions to the affine scheduling problem Part II Multidimensional time](https://www.researchgate.net/publication/2810999_Some_efficient_solutions_to_the_affine_scheduling_problem_Part_II_Multidimensional_time). Many corrent polehedral models are based on Feautrier's model. Feautrier's orginal paper is very long. Next, I will pick the key points so that people can understand faster.
+This is a briefly introduction/summary/review about Feautrier algorithm based on [Some efficient solutions to the affine scheduling problem Part I One-dimensional Time](https://www.researchgate.net/publication/2421859_Some_efficient_solutions_to_the_affine_scheduling_problem_Part_I_One-dimensional_Time) and [Some efficient solutions to the affine scheduling problem Part II Multidimensional time](https://www.researchgate.net/publication/2810999_Some_efficient_solutions_to_the_affine_scheduling_problem_Part_II_Multidimensional_time). Many corrent polehedral models are based on Feautrier's model. Feautrier's orginal paper is very long(80+pages intotal). Next, I will pick the key points so that people can understand faster.
 
 ## Generalized Dependence Graph
 <!-- <img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1"> -->
@@ -98,11 +98,104 @@ Below is one possible solution:
 
 with parallel form of the program:
 
-<img src="https://user-images.githubusercontent.com/22283979/131437257-3e43fd73-e366-4e78-891e-f3ee396fb7b8.png" height="140" align = "center">
+<img src="https://user-images.githubusercontent.com/22283979/131437257-3e43fd73-e366-4e78-891e-f3ee396fb7b8.png" height="150" align = "center">
 
 There might be many other solutions.
 
 ## 1-d how to select a good solution
-哎有空再写吧
-要不是因为怕忘记
-我也懒得写啊
+
+- Minimize Latency
+
+\bf{Lemma}: if domains are bounded, and exists at least one affine schedule, then there exist at least one affine form of structure parameters:
+
+<img src="https://user-images.githubusercontent.com/22283979/131444088-b96fec06-f8c5-43cf-9dc2-a235bd4fdc83.png" height="100" align = "center">
+
+We may apply Farkas Lemma:
+
+<img src="https://user-images.githubusercontent.com/22283979/131445822-49ccde76-153c-4ee8-b5fc-7f422591129e.png" height="50" align = "center">
+
+Make h and k be the leading unknown, so that Linear Programming solver will give the minimal values for h. Applying this to above program gives the min latency L=n+1. The problem of this method is that the order of structure parameters and unknowns matter.
+
+- Bounded delay schedule
+
+Want to find the minimun <img src="https://render.githubusercontent.com/render/math?math=\delta"> such that for each edge:
+
+<img src="https://user-images.githubusercontent.com/22283979/131446864-e558bcc7-8cf5-459d-99c0-a1329486a392.png" height="50" align = "center">
+
+Smaller delay tend to have better schedule(cache?).
+method is very obvious, apply Farkas Lemma and make <img src="https://render.githubusercontent.com/render/math?math=\delta"> the leading unknown. Bounded delay is more constrained than minimum latency.
+
+- Dual
+
+<img src="https://user-images.githubusercontent.com/22283979/131447495-3a6cb8ac-6e92-4472-90c4-1b5d04125883.png" height="70" align = "center">
+
+So want to find the minimum schedule:
+
+<img src="https://user-images.githubusercontent.com/22283979/131448231-e7a09cec-9095-4b8a-b307-d3cd557af500.png" height="160" align = "center">
+
+This might return a isolated numerical values of <img src="https://render.githubusercontent.com/render/math?math=\theta">, rather than a closed form solution.
+Since parameters(n?) occur in the objective function, not suitable for Linear Programming solver. By the following thm:
+
+<img src="https://user-images.githubusercontent.com/22283979/131450013-830a200c-1743-4ff3-9edf-3c6999348fb9.png" height="260" align = "center">
+
+We can have:
+
+<img src="https://user-images.githubusercontent.com/22283979/131450112-2ab168e6-4c13-4fa4-9b3e-705bf424100b.png" height="230" align = "center">
+
+Dual method and minimum latency method have the same latency. But dual method and bound delay method may have different delay.
+
+- Uniform recurrences
+
+For the uniform dependences no need to use Farkas Lemma. The condition for edge e simply be:
+
+<img src="https://user-images.githubusercontent.com/22283979/131451698-a5edf34b-d751-465b-a6eb-2912ba02453a.png" height="100" align = "center">
+
+The dual form:
+
+<img src="https://user-images.githubusercontent.com/22283979/131453532-c2d6bcd9-3b83-44b3-b0b8-b6ef7c3a6310.png" height="120" align = "center">
+
+Consider following as an uniform example:
+
+<img src="https://user-images.githubusercontent.com/22283979/131453884-d91dedc3-fccc-4c6e-8160-c3619c6351b6.png" height="60" align = "center">
+
+<img src="https://user-images.githubusercontent.com/22283979/131453950-d3475b93-6559-4f19-b727-5d1c99e7c04f.png" height="60" align = "center">
+
+<img src="https://user-images.githubusercontent.com/22283979/131454150-df792063-ed69-4714-b298-e9d7effc0abd.png" height="30" align = "center">
+
+let schedule be:
+
+<img src="https://user-images.githubusercontent.com/22283979/131454358-509188a5-08e1-4f07-ad55-c100a5cbd607.png" height="30" align = "center">
+
+the dual form is：
+
+<img src="https://user-images.githubusercontent.com/22283979/131454471-6f424b2a-1726-45c1-999d-354de6747ae8.png" height="160" align = "center">
+
+Linear Programming solver gives:
+
+<img src="https://user-images.githubusercontent.com/22283979/131454607-55f70fea-e00a-4775-8783-b18b8cd2b3ae.png" height="140" align = "center">
+
+# drawbacks of 1-d algo
+
+- Some programs whose free schedule if not concave, then cannot find piecewise affine schedule.
+
+For this program:
+
+<img src="https://user-images.githubusercontent.com/22283979/131455341-2fd4a921-d845-4674-a86b-7ab13da93431.png" height="70" align = "center">
+
+the best schedule is：
+<img src="https://render.githubusercontent.com/render/math?math=\theta(i) = if\ \ i>n\ \ then\ \ 1\ \ else\ \ 0">
+
+The dule Farkas algo will gives: <img src="https://render.githubusercontent.com/render/math?math=\theta'(i) = i">
+
+The best schedule has latency 1 while the algo will give latency O(n).
+
+- Some program do not have affine schedule:
+
+Take the following program as example:
+
+<img src="https://user-images.githubusercontent.com/22283979/131456132-73d765f2-07ba-43fb-8fb5-e6c837e3fa9c.png" height="110" align = "center">
+
+This program has schedule <img src="https://render.githubusercontent.com/render/math?math=\theta'(i) = ni %2Bj"> which is not linear. The term ni is not linear.
+
+# multi-dimension algorithm
+有缘再写
