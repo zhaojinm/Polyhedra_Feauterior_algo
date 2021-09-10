@@ -174,7 +174,7 @@ Linear Programming solver gives:
 
 <img src="https://user-images.githubusercontent.com/22283979/131454607-55f70fea-e00a-4775-8783-b18b8cd2b3ae.png" height="140" align = "center">
 
-# drawbacks of 1-d algo
+## drawbacks of 1-d algo
 
 - Some programs whose free schedule if not concave, then cannot find piecewise affine schedule.
 
@@ -197,5 +197,51 @@ Take the following program as example:
 
 This program has schedule <img src="https://render.githubusercontent.com/render/math?math=\theta'(i) = ni %2Bj"> which is not linear. The term ni is not linear.
 
-# multi-dimension algorithm
-有缘再写
+## multi-dimension algorithm
+### Basic Algorithm
+delay with edge <img src="https://render.githubusercontent.com/render/math?math=e">
+
+<img src="https://user-images.githubusercontent.com/22283979/132789168-e53e9680-2f11-44a9-9b97-36699bb5839c.png" height="50" align = "center">
+
+Schedule must satisfy:
+
+<img src="https://user-images.githubusercontent.com/22283979/132789257-b5634db0-c6e5-4d39-8750-b1d08c872f36.png" height="70" align = "center">
+
+So:
+
+<img src="https://user-images.githubusercontent.com/22283979/132789308-892dea55-0647-4eba-adfd-1f93fd555e00.png" height="40" align = "center">
+
+First iteration starts:
+
+<img src="https://user-images.githubusercontent.com/22283979/132789567-f3da2fd7-7daa-4ab7-b0af-15d73a7cb20e.png" height="40" align = "center">
+
+<img src="https://user-images.githubusercontent.com/22283979/132789600-0affec9f-ea3e-455a-8de7-677206b73f62.png" height="40" align = "center">
+
+May not all strongly satisfy, update polyhedral for next iteration:
+
+<img src="https://user-images.githubusercontent.com/22283979/132789713-2b7e4f62-9e52-4c17-a1ff-609b2c350ac0.png" height="40" align = "center">
+
+<img src="https://user-images.githubusercontent.com/22283979/132789718-70aa509b-af2c-4394-a8da-b343a222d647.png" height="30" align = "center">
+
+Way to update:
+
+<img src="https://user-images.githubusercontent.com/22283979/132789963-ceb0d42c-7217-45bf-99f5-f53b005e37b3.png" height="180" align = "center">
+
+If P is not empty, go to next iteration.
+
+## mult-dimension example
+
+<img src="https://user-images.githubusercontent.com/22283979/132790216-36821663-bcf1-4959-a74b-e1b9cdb7f85d.png" height="350" align = "center">
+
+## Greedy multi-dimension
+
+<img src="https://user-images.githubusercontent.com/22283979/132790388-6e4bc442-bca0-4c3c-b7d3-81fefb1ed2e6.png" height="110" align = "center">
+
+Lemma1: The solution is that all e are either 0 ot 1.
+
+Lemma2: The solution is unique.
+
+Theorem: Let U be an arbitrary subset of the edges of a static program. The solving programing for U always satisfies at least one edge of U(Greedy algorithm terminates).
+
+
+
