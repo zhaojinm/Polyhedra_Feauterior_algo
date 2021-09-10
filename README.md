@@ -32,8 +32,8 @@ In this case we can eliminate x. Use this way, dependence polyhedral of edges in
 <img src="https://user-images.githubusercontent.com/22283979/131435035-2660acef-27e0-499d-95f6-d865c646b7e0.png" height="70" align = "center">
 <img src="https://user-images.githubusercontent.com/22283979/131435175-112c8644-c709-4ce6-be81-48a11687beaa.png" height="70" align = "center">
 
-
-## 1d - Schedule
+## one-dimensional algorithm
+### 1d - Schedule
 <img src="https://user-images.githubusercontent.com/22283979/131428805-93c91093-ba43-4a22-ab4e-5d5f4a9eb7a3.png" height="100" align = "center">
 Each schedule has the form:
  <img src="https://render.githubusercontent.com/render/math?math=\theta(S,x) = \vec{a}x%2B\vec{b}n%2Bc"> 
@@ -68,7 +68,7 @@ As we discussed above, R can be represented by P and h, so above can be rewrite 
 
 then we can use Linear programminng tools to solve Farkas multipliers. Usually choose <img src="https://render.githubusercontent.com/render/math?math=\mu"> with minimum absolute value in lexicographical order.
 
-## 1-d schedule example
+### 1-d schedule example
 Use program 1 above as an example. Here are schedules with Farkas multipliers:
 <img src="https://user-images.githubusercontent.com/22283979/131435282-c9ceb6e7-1dc3-4e1b-a8cc-02439f7a42b8.png" height="70" align = "center">
 
@@ -102,7 +102,7 @@ with parallel form of the program:
 
 There might be many other solutions.
 
-## 1-d how to select a good solution
+### 1-d how to select a good solution
 
 - Minimize Latency
 
@@ -174,7 +174,7 @@ Linear Programming solver gives:
 
 <img src="https://user-images.githubusercontent.com/22283979/131454607-55f70fea-e00a-4775-8783-b18b8cd2b3ae.png" height="140" align = "center">
 
-## drawbacks of 1-d algo
+### drawbacks of 1-d algo
 
 - Some programs whose free schedule if not concave, then cannot find piecewise affine schedule.
 
@@ -229,11 +229,11 @@ Way to update:
 
 If P is not empty, go to next iteration.
 
-## mult-dimension example
+### mult-dimension example
 
 <img src="https://user-images.githubusercontent.com/22283979/132790216-36821663-bcf1-4959-a74b-e1b9cdb7f85d.png" height="350" align = "center">
 
-## Greedy multi-dimension
+### Greedy multi-dimension
 
 <img src="https://user-images.githubusercontent.com/22283979/132790388-6e4bc442-bca0-4c3c-b7d3-81fefb1ed2e6.png" height="110" align = "center">
 
